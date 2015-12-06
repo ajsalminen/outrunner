@@ -1,0 +1,83 @@
+---
+
+tag_process_command: ['watchman_ctags', 'run_task']
+projects:
+
+  default:
+    task_runner:
+      initial_run_command: ['gtags']
+      single_update_command: ["global", "--single-update"]
+      full_update_command: ['global', '-u']
+      tagfiles: ['GTAGS', 'GRTAGS', 'GPATH', 'ID']
+      exclude: ['*.min.js', '*.pyc']
+      full_scan_threshold: 1000
+    extensions: []
+
+  drupal:
+    task_runner:
+      initial_run_command: ['gtags', "--gtagslabel", "drupal"]
+      full_update_command: ['global', '-u']
+      single_update_command: ["global", "--gtagslabel", "drupal", "--single-update"]
+      tagfiles: ['GTAGS', 'GRTAGS', 'GPATH', 'ID']
+      full_scan_threshold: 1000
+      exclude: ['*.min.js']
+
+    extensions:
+      [ "*.php",
+      "*.module",
+      "*.inc",
+      "*.profile",
+      "*.install",
+      "*.test",
+      "*.theme",
+      "*.js" ]
+
+path_config:
+  # /path/to/drupal/repo: drupal
+
+  version: 1
+
+disable_existing_loggers: False
+
+formatters:
+
+    simple:
+
+        format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+logging:
+  version: 1
+  disable_existing_loggers: False
+  formatters:
+    simple:
+        format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  handlers:
+    console:
+        class: logging.StreamHandler
+        level: DEBUG
+        formatter: simple
+        stream: ext://sys.stdout
+    # info_file_handler:
+        # class: logging.handlers.RotatingFileHandler
+        # level: INFO
+        # formatter: simple
+        # filename: /path/to/logs/info.log
+        # maxBytes: 10485760 # 10MB
+        # backupCount: 20
+        # encoding: utf8
+    # error_file_handler:
+        # class: logging.handlers.RotatingFileHandler
+        # level: ERROR
+        # formatter: simple
+        # filename: /path/to/logs/errors.log
+        # maxBytes: 10485760 # 10MB
+        # backupCount: 20
+        # encoding: utf8
+  loggers:
+    my_module:
+        level: ERROR
+        handlers: [console]
+        propagate: no
+  root:
+    level: DEBUG
+    handlers: [console]

@@ -47,6 +47,6 @@ See also
 
 * [maurizi's retag.rs](https://github.com/maurizi/retag.rs/) is a similar tool
   written in Rust.
-* [Effortless Ctags with Git])(http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html) is a different approach that relies on git hooks instead of inotify-like functionality.
+* [Effortless Ctags with Git](http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html) is a different approach that relies on git hooks instead of inotify-like functionality.
 * [helm-gtags.el](https://github.com/syohex/emacs-helm-gtags) for Emacs and other similar packages provide automatic tagger updates when a file is saved from the editor
 * [grunt](http://gruntjs.com/) and other similar task runners may have plugins that achieve similar things for a project.

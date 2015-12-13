@@ -1,5 +1,7 @@
 
 outrunner_watch_on_cwd() {
+    # Don't do anything if not connected to a terminal.
+    [[ -t 1 ]] || return
     shell_pid=$$
     git_root=$(git rev-parse --show-toplevel 2> /dev/null)
     if (( $? != 0 )); then

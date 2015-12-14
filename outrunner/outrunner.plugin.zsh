@@ -30,5 +30,6 @@ outrunner_exit(){
     fi
 }
 
+autoload -U add-zsh-hook
 add-zsh-hook chpwd outrunner_watch_on_cwd
 add-zsh-hook zshexit outrunner_exit

@@ -108,7 +108,7 @@ class WatchManager(object):
             try:
                 self.save()
             except cPickle.PicklingError as e:
-                # Readd the watch we just removed if the state cannot be saved.
+                # Read the watch we just removed if the state cannot be saved.
                 logger.error("Saving watch state failed: {}".format(e))
                 self._watcher.watch(path)
                 raise WatchManagerError('Unable to save watch state.')

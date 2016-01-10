@@ -17,6 +17,8 @@ class FileWatcher(object):
         """Helper method for issuing watchman commands.
 
         Provides error handling and loads the response from watchman."""
+        if 'file_watcher_options' in self._config.config:
+            command = command + self._config['file_watcher_options']
         result = subprocess.Popen(command, stdin=subprocess.PIPE,
                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         (output, errors) = result.communicate(data)

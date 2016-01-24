@@ -17,8 +17,9 @@ class FileWatcher(object):
         """Helper method for issuing watchman commands.
 
         Provides error handling and loads the response from watchman."""
-        if 'file_watcher_options' in self._config.config:
-            command = command + self._config['file_watcher_options']
+
+        logger = logging.getLogger(__name__)
+        logger.debug("watch command is: [{}]".format(" ".join(command)))
         result = subprocess.Popen(command, stdin=subprocess.PIPE,
                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         (output, errors) = result.communicate(data)
@@ -50,15 +51,18 @@ class FileWatcher(object):
         logger.debug("Update trigger is: " + json.dumps(update_trigger))
         logger.debug("Delete trigger is: " + json.dumps(delete_trigger))
 
-        self.watchman_command(['watchman', 'watch', path], None)
-        self.watchman_command(["watchman", "-j"], json.dumps(update_trigger))
-        self.watchman_command(["watchman", "-j"], json.dumps(delete_trigger))
+        trigger_command = self._config['file_watcher']['commands']['trigger']
+        watch_command = self._config['file_watcher']['commands']['watch']
+        self.watchman_command(watch_command + [path], None)
+        self.watchman_command(trigger_command, json.dumps(update_trigger))
+        self.watchman_command(trigger_command, json.dumps(delete_trigger))
 
 
 
     def unwatch(self, path):
         """Stop watching a directory for changes."""
-        self.watchman_command(['watchman', 'watch-del', path], None)
+        unwatch_command = self._config['file_watcher']['commands']['unwatch']
+        self.watchman_command(unwatch_command + [path], None)
 
     def process_notification(self, notification):
         """Process a notification of changed files.

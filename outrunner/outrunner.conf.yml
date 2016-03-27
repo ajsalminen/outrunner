@@ -30,6 +30,7 @@ projects:
       "*.install",
       "*.test",
       "*.theme",
+      "*.engine",
       "*.js" ]
 
 path_config:

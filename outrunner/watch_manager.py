@@ -22,7 +22,7 @@ class WatchManager(object):
         self._task_runner = task_runner
         self._watcher = watcher
         user = os.path.expanduser('~')
-        self._state_file_path = "{}/.{}.state".format(user,  __name__.split('.')[0])
+        self._state_file_path = "/tmp/{}-{}.state".format(os.getlogin(),  __name__.split('.')[0])
         self.load()
 
 
